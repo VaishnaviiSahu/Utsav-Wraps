@@ -875,6 +875,86 @@
     .footer-heart svg { width: 12px; height: 12px; fill: var(--primary); color: var(--primary); }
     .footer-copy { font-size: 12px; color: rgba(250,246,241,0.3); }
 
+    /* ===================== SIZE PICKER MODAL ===================== */
+    .size-backdrop {
+      position: fixed; inset: 0; z-index: 65;
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+      background: rgba(42,26,16,0.5); backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .size-backdrop.open { opacity: 1; pointer-events: auto; }
+    .size-modal {
+      position: relative; z-index: 10;
+      width: 100%; max-width: 420px;
+      border-radius: 16px; background: var(--card); box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+      transform: scale(0.85) translateY(20px); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      overflow: hidden;
+    }
+    .size-backdrop.open .size-modal { transform: scale(1) translateY(0); }
+    .size-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+    }
+    .size-header h3 {
+      font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--card-fg);
+    }
+    .size-close {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: none; color: var(--muted-fg); transition: background 0.3s;
+    }
+    .size-close:hover { background: var(--muted); color: var(--fg); }
+    .size-close svg { width: 16px; height: 16px; }
+    .size-product-info {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 24px; background: rgba(235,227,214,0.3);
+    }
+    .size-product-thumb {
+      width: 56px; height: 56px; border-radius: 10px; overflow: hidden;
+      flex-shrink: 0; background: var(--muted);
+    }
+    .size-product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .size-product-name {
+      font-size: 13px; font-weight: 600; color: var(--card-fg); line-height: 1.3;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .size-options { padding: 20px 24px; display: flex; flex-direction: column; gap: 10px; }
+    .size-option {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px; border-radius: 12px;
+      border: 2px solid var(--border); background: var(--bg);
+      text-align: left; transition: all 0.3s; cursor: pointer;
+    }
+    .size-option:hover { border-color: rgba(155,35,53,0.3); background: rgba(155,35,53,0.02); }
+    .size-option.selected { border-color: var(--primary); background: rgba(155,35,53,0.05); }
+    .size-option-left { display: flex; align-items: center; gap: 12px; }
+    .size-radio {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid var(--border); display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .size-option.selected .size-radio { border-color: var(--primary); }
+    .size-radio-inner {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: transparent; transition: background 0.3s;
+    }
+    .size-option.selected .size-radio-inner { background: var(--primary); }
+    .size-name { font-size: 14px; font-weight: 600; color: var(--card-fg); }
+    .size-sub { font-size: 11px; color: var(--muted-fg); }
+    .size-price { font-size: 16px; font-weight: 700; color: var(--primary); white-space: nowrap; }
+    .size-footer { padding: 16px 24px 20px; }
+    .btn-size-add {
+      width: 100%; padding: 14px; border-radius: 999px;
+      background: var(--primary); color: var(--primary-fg);
+      font-size: 14px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all 0.3s;
+    }
+    .btn-size-add:hover { box-shadow: 0 8px 24px rgba(155,35,53,0.2); }
+    .btn-size-add:active { transform: scale(0.98); }
+    .btn-size-add svg { width: 16px; height: 16px; }
+
     /* Spinner */
     .spinner { width: 16px; height: 16px; border: 2px solid var(--primary-fg); border-top-color: transparent; border-radius: 50%; animation: spinSlow 0.6s linear infinite; }
 
@@ -894,6 +974,11 @@
         position: absolute;
         inset: 0;
         }
+        .modal-img .occasion-badge {
+  background: var(--primary);
+  color: var(--primary-fg);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
   </style>
 </head>
 <body>
@@ -1034,7 +1119,7 @@
             </div>
             <div class="contact-item">
               <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
-              <div><span class="contact-label-sm">Address</span><br/><span class="contact-value">Johari Bazaar, Jaipur, Rajasthan 302003</span></div>
+              <div><span class="contact-label-sm">Address</span><br/><span class="contact-value">Nagpur, Maharashta</span></div>
             </div>
           </div>
           <form class="contact-form" onsubmit="event.preventDefault(); showToast('Message sent successfully!');">
@@ -1133,6 +1218,26 @@
       </div>
       <div class="steps-indicator" id="stepsIndicator"></div>
       <div class="checkout-body" id="checkoutBody"></div>
+    </div>
+  </div>
+
+  <!-- ============ SIZE PICKER MODAL ============ -->
+  <div class="size-backdrop" id="sizeBackdrop" onclick="closeSizePicker()">
+    <div class="size-modal" onclick="event.stopPropagation()">
+      <div class="size-header">
+        <h3>Select Size</h3>
+        <button class="size-close" onclick="closeSizePicker()" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <div id="sizeProductInfo" class="size-product-info"></div>
+      <div id="sizeOptions" class="size-options"></div>
+      <div class="size-footer">
+        <button class="btn-size-add" id="btnSizeAdd" onclick="confirmSizeAdd()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Add to Cart
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1291,7 +1396,6 @@
           <div class="product-img-wrap ${p.cssClass}">
             <img src="Utsav/assets/${p.image}" alt="${p.name}" class="product-image" />
             <span class="occasion-badge">${p.occasion}</span>
-            <span class="occasion-badge">${p.occasion}</span>
             <div class="card-overlay">
               <button class="overlay-btn view" onclick="openProductDetail('${p.id}')" aria-label="View details">${iconSVGs.eye}</button>
               <button class="overlay-btn add" onclick="addToCart('${p.id}')" aria-label="Add to cart">${iconSVGs.bag}</button>
@@ -1382,11 +1486,7 @@
       const grid = document.getElementById('modalGrid');
       grid.innerHTML = `
         <div class="modal-img product-img-wrap ${p.cssClass}">
-          <div class="img-placeholder">
-            <div class="modal-img product-img-wrap ${p.cssClass}">
-               <img src="Utsav/assets/${p.image}" alt="${p.name}" class="product-image" /> 
-                <span class="occasion-badge">${p.occasion}</span>
-                </div>
+          <img src="Utsav/assets/${p.image}" alt="${p.name}" class="product-image" />
           <span class="occasion-badge">${p.occasion}</span>
         </div>
         <div class="modal-details">
@@ -1444,16 +1544,9 @@
       if (modalAdded) return;
       const p = products.find(x => x.id === id);
       if (!p) return;
-      for (let i = 0; i < modalQty; i++) addToCartDirect(p);
-      modalAdded = true;
-      const btn = document.getElementById('modalAddBtn');
-      btn.className = 'btn-add-full added';
-      btn.innerHTML = `${iconSVGs.check} Added to Cart!`;
-      setTimeout(() => {
-        modalAdded = false;
-        btn.className = 'btn-add-full default';
-        btn.innerHTML = `${iconSVGs.bag} Add to Cart - \u20B9${p.price * modalQty}`;
-      }, 1500);
+      sizePickerQty = modalQty;
+      sizePickerFromModal = true;
+      openSizePicker(id);
     }
 
     function closeProductModal() {
@@ -1462,41 +1555,161 @@
       document.body.style.overflow = '';
     }
 
-    // ===================== CART LOGIC =====================
-    function addToCart(id) {
+    // ===================== SIZE DEFINITIONS =====================
+    const sizeOptions = [
+      { id: 'xs', name: 'Extra Small', sub: 'Jewellery Bag', multiplier: 0.7 },
+      { id: 'sm', name: 'Small', sub: '', multiplier: 1.0 },
+      { id: 'md', name: 'Medium', sub: '', multiplier: 1.3 },
+      { id: 'lg', name: 'Large', sub: '', multiplier: 1.6 },
+    ];
+    let sizePickerProduct = null;
+    let selectedSize = 'sm';
+
+    function openSizePicker(id) {
       const p = products.find(x => x.id === id);
-      if (p) addToCartDirect(p);
+      if (!p) return;
+      sizePickerProduct = p;
+      selectedSize = 'sm';
+      renderSizePicker();
+      document.getElementById('sizeBackdrop').classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
 
-    function addToCartDirect(p) {
-      const existing = cart.find(x => x.product.id === p.id);
-      if (existing) { existing.quantity++; }
-      else { cart.push({ product: p, quantity: 1 }); }
+    function closeSizePicker() {
+      document.getElementById('sizeBackdrop').classList.remove('open');
+      // Only restore scroll if no other modal is open
+      const productModal = document.getElementById('productModal');
+      const isProductModalOpen = productModal && productModal.classList.contains('open');
+      if (!isProductModalOpen) {
+        document.body.style.overflow = '';
+      }
+      sizePickerProduct = null;
+    }
+
+    function selectSize(sizeId) {
+      selectedSize = sizeId;
+      renderSizePicker();
+    }
+
+    function getSizePrice(basePrice, sizeId) {
+      const size = sizeOptions.find(s => s.id === sizeId);
+      return Math.round(basePrice * (size ? size.multiplier : 1));
+    }
+
+    function renderSizePicker() {
+      const p = sizePickerProduct;
+      if (!p) return;
+
+      document.getElementById('sizeProductInfo').innerHTML = `
+        <div class="size-product-thumb">
+          <img src="Utsav/assets/${p.image}" alt="${p.name}" />
+        </div>
+        <div>
+          <div class="size-product-name">${p.name}</div>
+        </div>
+      `;
+
+      document.getElementById('sizeOptions').innerHTML = sizeOptions.map(s => {
+        const price = getSizePrice(p.price, s.id);
+        const isSelected = selectedSize === s.id;
+        return `
+          <button class="size-option${isSelected ? ' selected' : ''}" onclick="selectSize('${s.id}')">
+            <div class="size-option-left">
+              <div class="size-radio"><div class="size-radio-inner"></div></div>
+              <div>
+                <div class="size-name">${s.name}${s.sub ? ' (' + s.sub + ')' : ''}</div>
+                ${s.sub ? '' : '<div class="size-sub">&nbsp;</div>'}
+              </div>
+            </div>
+            <span class="size-price">\u20B9${price}</span>
+          </button>
+        `;
+      }).join('');
+
+      const selectedPrice = getSizePrice(p.price, selectedSize);
+      document.getElementById('btnSizeAdd').innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Add to Cart - \u20B9${selectedPrice}
+      `;
+    }
+
+    let sizePickerQty = 1;
+    let sizePickerFromModal = false;
+
+    function confirmSizeAdd() {
+      if (!sizePickerProduct) return;
+      const size = sizeOptions.find(s => s.id === selectedSize);
+      const price = getSizePrice(sizePickerProduct.price, selectedSize);
+      const sizeName = size.name + (size.sub ? ' (' + size.sub + ')' : '');
+      // Add with correct quantity
+      const cartId = sizePickerProduct.id + '-' + selectedSize;
+      const existing = cart.find(x => x.cartId === cartId);
+      if (existing) { existing.quantity += sizePickerQty; }
+      else { cart.push({ cartId: cartId, product: sizePickerProduct, size: sizeName, sizeId: selectedSize, price: price, quantity: sizePickerQty }); }
       updateCartUI();
-      showToast(`${p.name.split(' ').slice(0,3).join(' ')}... added to cart`);
-      // Bounce animation
+      showToast(`${sizePickerProduct.name.split(' ').slice(0,3).join(' ')}... (${sizeName}) added to cart`);
+      const cartBtn = document.getElementById('cartBtn');
+      cartBtn.classList.add('bounce');
+      setTimeout(() => cartBtn.classList.remove('bounce'), 400);
+      // Show "Added" feedback on modal button if opened from product modal
+      if (sizePickerFromModal) {
+        const btn = document.getElementById('modalAddBtn');
+        if (btn) {
+          modalAdded = true;
+          btn.className = 'btn-add-full added';
+          btn.innerHTML = `${iconSVGs.check} Added to Cart!`;
+          const pp = sizePickerProduct;
+          const mq = modalQty;
+          setTimeout(() => {
+            modalAdded = false;
+            btn.className = 'btn-add-full default';
+            btn.innerHTML = `${iconSVGs.bag} Add to Cart - \u20B9${pp.price * mq}`;
+          }, 1500);
+        }
+      }
+      sizePickerFromModal = false;
+      sizePickerQty = 1;
+      closeSizePicker();
+    }
+
+    // ===================== CART LOGIC =====================
+    function addToCart(id) {
+      openSizePicker(id);
+    }
+
+    function addToCartWithSize(p, sizeId, sizeName, price) {
+      const cartId = p.id + '-' + sizeId;
+      const existing = cart.find(x => x.cartId === cartId);
+      if (existing) { existing.quantity++; }
+      else { cart.push({ cartId: cartId, product: p, size: sizeName, sizeId: sizeId, price: price, quantity: 1 }); }
+      updateCartUI();
+      showToast(`${p.name.split(' ').slice(0,3).join(' ')}... (${sizeName}) added to cart`);
       const btn = document.getElementById('cartBtn');
       btn.classList.add('bounce');
       setTimeout(() => btn.classList.remove('bounce'), 400);
     }
 
-    function removeFromCart(id) {
-      cart = cart.filter(x => x.product.id !== id);
+    function addToCartDirect(p) {
+      openSizePicker(p.id);
+    }
+
+    function removeFromCart(cartId) {
+      cart = cart.filter(x => x.cartId !== cartId);
       updateCartUI(); renderCartBody();
     }
 
-    function updateItemQty(id, delta) {
-      const item = cart.find(x => x.product.id === id);
+    function updateItemQty(cartId, delta) {
+      const item = cart.find(x => x.cartId === cartId);
       if (!item) return;
       item.quantity += delta;
-      if (item.quantity <= 0) { removeFromCart(id); return; }
+      if (item.quantity <= 0) { removeFromCart(cartId); return; }
       updateCartUI(); renderCartBody();
     }
 
     function clearCartAll() { cart = []; updateCartUI(); renderCartBody(); }
 
     function getTotalItems() { return cart.reduce((s, i) => s + i.quantity, 0); }
-    function getTotalPrice() { return cart.reduce((s, i) => s + i.product.price * i.quantity, 0); }
+    function getTotalPrice() { return cart.reduce((s, i) => s + i.price * i.quantity, 0); }
 
     function updateCartUI() {
       const count = getTotalItems();
@@ -1537,17 +1750,20 @@
       body.innerHTML = `<div class="cart-items">
         ${cart.map(item => `
           <div class="cart-item">
-            <div class="cart-item-img">${iconSVGs.image.replace('width="40"','width="32"').replace('height="40"','height="32"')}</div>
+            <div class="cart-item-img" style="overflow:hidden;border-radius:8px;">
+              <img src="Utsav/assets/${item.product.image}" alt="${item.product.name}" style="width:100%;height:100%;object-fit:cover;" />
+            </div>
             <div class="cart-item-info">
               <h4 class="cart-item-name">${item.product.name}</h4>
-              <span class="cart-item-price">\u20B9${item.product.price}</span>
+              <span style="font-size:11px;color:var(--muted-fg);">Size: ${item.size}</span>
+              <span class="cart-item-price">\u20B9${item.price}</span>
               <div class="cart-item-actions">
                 <div class="mini-qty">
-                  <button onclick="updateItemQty('${item.product.id}', -1)">${iconSVGs.minus}</button>
+                  <button onclick="updateItemQty('${item.cartId}', -1)">${iconSVGs.minus}</button>
                   <span>${item.quantity}</span>
-                  <button onclick="updateItemQty('${item.product.id}', 1)">${iconSVGs.plus}</button>
+                  <button onclick="updateItemQty('${item.cartId}', 1)">${iconSVGs.plus}</button>
                 </div>
-                <button class="remove-btn" onclick="removeFromCart('${item.product.id}')">${iconSVGs.trash}</button>
+                <button class="remove-btn" onclick="removeFromCart('${item.cartId}')">${iconSVGs.trash}</button>
               </div>
             </div>
           </div>
@@ -1626,9 +1842,11 @@
             <div class="order-summary-mini">
               <h4 class="summary-title">Order Summary (${getTotalItems()} items)</h4>
               ${cart.map(item => `<div class="summary-item">
-                <div class="summary-item-img">${iconSVGs.image.replace('width="40"','width="20"').replace('height="40"','height="20"')}</div>
-                <span class="summary-item-name">${item.product.name}</span>
-                <span class="summary-item-price">\u20B9${item.product.price} x${item.quantity}</span>
+                <div class="summary-item-img" style="overflow:hidden;border-radius:8px;">
+                  <img src="Utsav/assets/${item.product.image}" alt="${item.product.name}" style="width:100%;height:100%;object-fit:cover;" />
+                </div>
+                <span class="summary-item-name">${item.product.name} (${item.size})</span>
+                <span class="summary-item-price">\u20B9${item.price} x${item.quantity}</span>
               </div>`).join('')}
               <div class="summary-total-row">
                 <span class="summary-total-label">Total</span>
@@ -1712,5 +1930,3 @@
   </script>
 </body>
 </html>
-
-
